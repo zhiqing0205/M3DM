@@ -2,6 +2,7 @@ import argparse
 from m3dm_runner import M3DM
 from dataset import eyecandies_classes, mvtec3d_classes
 import pandas as pd
+import os
 
 
 def run_3d_ads(args):
@@ -45,7 +46,14 @@ def run_3d_ads(args):
     print("##########################################################################\n")
     print(au_pros_df.to_markdown(index=False))
 
-
+    if not os.path.exists("results"):
+        os.makedirs("results")
+    if not os.path.exists("results/image_rocauc_results.md"):
+        os.makedirs("results/image_rocauc_results.md")
+    if not os.path.exists("results/pixel_rocauc_results.md"):
+        os.makedirs("results/pixel_rocauc_results.md")
+    if not os.path.exists("results/aupro_results.md"):
+        os.makedirs("results/aupro_results.md")
 
     with open("results/image_rocauc_results.md", "a") as tf:
         tf.write(image_rocaucs_df.to_markdown(index=False))
